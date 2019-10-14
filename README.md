@@ -1,6 +1,6 @@
 # TFL Journey Cost
 
-Fetches theoretical cost of TFL journies from TFL journey history CSV.
+Fetches theoretical cost of TFL journeys from TFL journey history CSV.
 
 ## Getting Started
 
