@@ -5,15 +5,11 @@ Fetches theoretical cost of TFL journies from TFL journey history CSV.
 ## Getting Started
 
 Download all files, place journey history in `.\inputs\xyz.csv`, then run `.\tfl.ps1`.
-Currently, the script calculates peak and off peak hours, including all UK bank holdiays as off peak (using the (GOV.UK)[https://www.gov.uk/bank-holidays.json] API). Hopper Fare discounts are currently ignored.
+Currently, the script calculates peak and off peak hours, including all UK bank holdiays as off peak (using the [GOV.UK](https://www.gov.uk/bank-holidays.json) API). Hopper Fare discounts are currently ignored.
 
 ### Prerequisites
 
 You will need [Powershell](https://github.com/PowerShell/PowerShell#get-powershell) and an Application ID and Application Key from [TFL](https://api-portal.tfl.gov.uk).
-
-```
-Give examples
-```
 
 ### Installing
 
