@@ -1,0 +1,12 @@
+{
+  "app_id": "YOUR_APPID",
+  "app_key": "YOUR_APPKEY",
+  "bus_cost": 1.5,
+  "max_requests_minute": 500,
+  "times": {
+    "peak_morn_start": "06:30",
+    "peak_morn_end": "09:30",
+    "peak_eve_start": "16:00",
+    "peak_eve_end": "19:00"
+  }
+}
