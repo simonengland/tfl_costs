@@ -13,7 +13,8 @@ Function Format-StationName {
 .NOTES
     Author: Simon England
     Last Edit: 2019-09-02
-    Version 1.0 - initial release of Format-StationName
+    Version: 1.0
+    Version 1.0 - 2019-09-02 Initial release of Format-StationName
 #>
     Param(
         [Parameter(Position=0,
@@ -66,7 +67,8 @@ Function Find-JourneyCost {
 .NOTES
     Author: Simon England
     Last Edit: 2019-09-03
-    Version 1.0 - initial release of Find-JourneyCost
+    Version: 1.0
+    Version 1.0 - 2019-09-03 Initial release of Find-JourneyCost
 #>
     Param(
         [Parameter(Position=0,
@@ -142,7 +144,8 @@ Function Find-HubTubeID {
 .NOTES
     Author: Simon England
     Last Edit: 2019-09-03
-    Version 1.0 - initial release of Find-HubTubeID
+    Version: 1.0
+    Version 1.0 - 2019-09-03 Initial release of Find-HubTubeID
 #>
     Param(
         [Parameter(Position=0,
@@ -224,7 +227,8 @@ Function Test-TFLRequestLimit {
 .NOTES
     Author: Simon England
     Last Edit: 2019-10-14
-    Version 1.0 - initial release of Find-HubTubeID
+    Version: 1.0
+    Version 1.0 - 2019-10-14 Initial release of Find-HubTubeID
 #>
     Param(
         [Parameter(Position=0,

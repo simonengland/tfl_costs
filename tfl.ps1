@@ -6,7 +6,7 @@
 .INPUTS
     TFL journey history CSV in .\input
 .OUTPUTS
-    Annotated journeyb history CSV in .\output
+    Annotated journey history CSV in .\output
 .NOTES
     Author: Simon England
     Last Edit: 2019-10-14
@@ -73,14 +73,24 @@ Get-ChildItem -Path $FileLocation* -Include *.csv | Foreach-Object {
         $JourneyAction = $Data[$i].'Journey/Action'
         If ($JourneyAction.Substring(0, 3) -eq 'Bus') {
             $TheoCharge = $BusCharge
+            $StartLoc = ''
+            $EndLoc = ''
         } Elseif ($JourneyAction.Substring(1, 8) -eq 'No touch') {
             $TheoCharge = 0
+            $StartLoc = ''
+            $EndLoc = ''
         } Elseif ($JourneyAction.Substring(0, 7) -eq 'Entered') {
             $TheoCharge = 0
+            $StartLoc = ''
+            $EndLoc = ''
         } Elseif ($JourneyAction.Substring(0, 13)-eq 'Season ticket') {
             $TheoCharge = 0
+            $StartLoc = ''
+            $EndLoc = ''
         } Elseif ($JourneyAction.Substring(0, 8) -eq 'Auto top') {
             $TheoCharge = 0
+            $StartLoc = ''
+            $EndLoc = ''
         } Else {
             $Split = $JourneyAction.IndexOf(' to ')
             $StartLoc = $JourneyAction.Substring(0, $Split)
@@ -92,15 +102,17 @@ Get-ChildItem -Path $FileLocation* -Include *.csv | Foreach-Object {
                 }
             }
             $EndLoc = Format-StationName -Name $EndLoc
+            Write-Host $StartLoc
+            Write-Host $EndLoc
             If (!$BadSearch) {
-                $Uri1 = 'https://api.tfl.gov.uk/StopPoint/Search?query=' + $StartLoc + '&modes=tube&' + $QueryAppend
+                $Uri1 = 'https://api.tfl.gov.uk/StopPoint/Search?query=' + $StartLoc + '&modes=tube,overground,dlr&' + $QueryAppend
                 if (Test-TFLRequestLimit -Requests $TFLRequests -MaxRequests $TFLRequestsPerMinute -StartTime $QueryStart) {
                     $QueryStart = Get-Date
                     $TFLRequests = 0
                 }
                 $ResponseStation1 = Invoke-WebRequest -uri $Uri1 | ConvertFrom-Json
                 $TFLRequests++
-                If ($ResponseStation1.total -eq 1) {
+                If (($ResponseStation1.total -eq 1) -or ($ResponseStation1.matches[0].name -eq $StartLoc)) {
                     $Station1 = $ResponseStation1.matches[0].id
                     If ($Station1.Substring(0,3) -eq 'HUB') {
                         if (Test-TFLRequestLimit -Requests $TFLRequests -MaxRequests $TFLRequestsPerMinute -StartTime $QueryStart) {
@@ -110,14 +122,14 @@ Get-ChildItem -Path $FileLocation* -Include *.csv | Foreach-Object {
                         $Station1 = Find-HubTubeID -Station $Station1 -AppID $AppID -AppKey $AppKey
                         $TFLRequests++
                     }
-                    $Uri2 = 'https://api.tfl.gov.uk/StopPoint/Search?query=' + $EndLoc + '&modes=tube&' + $QueryAppend
+                    $Uri2 = 'https://api.tfl.gov.uk/StopPoint/Search?query=' + $EndLoc + '&modes=tube,overground,dlr&' + $QueryAppend
                     if (Test-TFLRequestLimit -Requests $TFLRequests -MaxRequests $TFLRequestsPerMinute -StartTime $QueryStart) {
                         $QueryStart = Get-Date
                         $TFLRequests = 0
                     }
                     $ResponseStation2 = Invoke-WebRequest -uri $Uri2 | ConvertFrom-Json
                     $TFLRequests++
-                    If ($ResponseStation2.total -eq 1) {
+                    If (($ResponseStation2.total -eq 1) -or ($ResponseStation2.matches[0].name -eq $EndLoc)) {
                         $Station2 = $ResponseStation2.matches[0].id
                         If ($Station2.Substring(0,3) -eq 'HUB') {
                             if (Test-TFLRequestLimit -Requests $TFLRequests -MaxRequests $TFLRequestsPerMinute -StartTime $QueryStart) {
