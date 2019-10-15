@@ -25,6 +25,12 @@ Run the script from a new Powershell window, in the location of `.\tfl.ps1`
 PS C:\Users\username\scripts\tfl_journey_history> .\tfl
 ```
 
+## Issues
+
+Hopper Fares ignored.
+DLR: 'Cutty Sark DLR' in TFL CSV, 'Cutty Sark' in TFL API. Unsure if similar for other DLR stations.
+No result for London Bridge to Greenford, unsur why.
+
 ## Contributing
 
 Feel free to get in touch with suggestions or contributions.
